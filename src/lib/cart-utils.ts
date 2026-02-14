@@ -43,15 +43,14 @@ export function updateQuantity(
       ? {
           ...item,
           quantity,
-          // BUG: subtotal is NOT recalculated here — it keeps the original value
+          subtotal: quantity * item.product.price,
         }
       : item
   );
 }
 
 export function calculateCartTotal(items: CartItem[]): number {
-  // BUG: uses item.subtotal which is stale after quantity updates
-  return items.reduce((total, item) => total + item.subtotal, 0);
+  return items.reduce((total, item) => total + item.quantity * item.product.price, 0);
 }
 
 export function getCartItemCount(items: CartItem[]): number {
