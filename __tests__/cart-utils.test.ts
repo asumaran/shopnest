@@ -2,6 +2,7 @@ import { describe, it, expect } from "vitest";
 import {
   addToCart,
   removeFromCart,
+  updateQuantity,
   calculateCartTotal,
   getCartItemCount,
 } from "@/lib/cart-utils";
@@ -83,6 +84,35 @@ describe("removeFromCart", () => {
   });
 });
 
+describe("updateQuantity", () => {
+  it("updates quantity and recalculates subtotal", () => {
+    const cart: CartItem[] = [
+      { product: mockProduct, quantity: 1, subtotal: 29.99 },
+    ];
+    const result = updateQuantity(cart, "1", 3);
+    expect(result[0].quantity).toBe(3);
+    expect(result[0].subtotal).toBeCloseTo(89.97);
+  });
+
+  it("removes item when quantity is 0", () => {
+    const cart: CartItem[] = [
+      { product: mockProduct, quantity: 1, subtotal: 29.99 },
+    ];
+    const result = updateQuantity(cart, "1", 0);
+    expect(result).toHaveLength(0);
+  });
+
+  it("does not affect other items", () => {
+    const cart: CartItem[] = [
+      { product: mockProduct, quantity: 1, subtotal: 29.99 },
+      { product: mockProduct2, quantity: 1, subtotal: 49.99 },
+    ];
+    const result = updateQuantity(cart, "1", 5);
+    expect(result[1].quantity).toBe(1);
+    expect(result[1].subtotal).toBe(49.99);
+  });
+});
+
 describe("calculateCartTotal", () => {
   it("returns 0 for empty cart", () => {
     expect(calculateCartTotal([])).toBe(0);
@@ -101,6 +131,14 @@ describe("calculateCartTotal", () => {
       { product: mockProduct2, quantity: 1, subtotal: 49.99 },
     ];
     expect(calculateCartTotal(cart)).toBeCloseTo(79.98);
+  });
+
+  it("calculates correct total after quantity update", () => {
+    const cart: CartItem[] = [
+      { product: mockProduct, quantity: 1, subtotal: 29.99 },
+    ];
+    const updated = updateQuantity(cart, "1", 4);
+    expect(calculateCartTotal(updated)).toBeCloseTo(119.96);
   });
 });
 
