@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { products } from "@/data/products";
+import { getAll } from "@/services/product-service";
 import { Category } from "@/types";
 import { applyFilters, getCategories } from "@/lib/product-filters";
 import ProductGrid from "@/components/ProductGrid";
@@ -12,7 +12,7 @@ export default function HomePage() {
     null
   );
 
-  const inStockProducts = products.filter((p) => p.inStock);
+  const inStockProducts = getAll().filter((p) => p.inStock);
   const categories = getCategories(inStockProducts);
   const filteredProducts = applyFilters(
     inStockProducts,
