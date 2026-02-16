@@ -3,14 +3,14 @@
 import { useParams } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { products } from "@/data/products";
+import { getById } from "@/services/product-service";
 import { useCart } from "@/context/CartContext";
 
 export default function ProductDetailPage() {
   const params = useParams();
   const { addItem } = useCart();
 
-  const product = products.find((p) => p.id === params.id);
+  const product = getById(params.id as string);
 
   if (!product) {
     return (
