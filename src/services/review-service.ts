@@ -9,6 +9,10 @@ export function getReviewsByProductId(productId: any) {
   return reviews.filter((r) => r.productId === productId);
 }
 
+export function getReviewCount(productId: string): number {
+  return getReviewsByProductId(productId).length;
+}
+
 export function getAverageRating(productId: string): number {
   const productReviews = getReviewsByProductId(productId);
   if (productReviews.length === 0) return 0;
