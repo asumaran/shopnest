@@ -5,6 +5,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { getById } from "@/services/product-service";
 import { useCart } from "@/context/CartContext";
+import ProductReviews from "@/components/ProductReviews";
+import { getAverageRating } from "@/services/review-service";
 
 export default function ProductDetailPage() {
   const params = useParams();
@@ -79,6 +81,8 @@ export default function ProductDetailPage() {
           </p>
         </div>
       </div>
+
+      <ProductReviews productId={product.id} />
     </div>
   );
 }
