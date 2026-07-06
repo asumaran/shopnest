@@ -3,7 +3,11 @@ import { Product, Category } from "@/types";
 export function filterBySearch(products: Product[], query: string): Product[] {
   if (!query.trim()) return products;
   const lowerQuery = query.toLowerCase();
-  return products.filter((p) => p.name.toLowerCase().includes(lowerQuery));
+  return products.filter(
+    (p) =>
+      p.name.toLowerCase().includes(lowerQuery) ||
+      p.description.toLowerCase().includes(lowerQuery)
+  );
 }
 
 export function filterByCategory(
