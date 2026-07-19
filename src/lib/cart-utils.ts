@@ -56,3 +56,7 @@ export function calculateCartTotal(items: CartItem[]): number {
 export function getCartItemCount(items: CartItem[]): number {
   return items.reduce((count, item) => count + item.quantity, 0);
 }
+
+export function isCartEmpty(items: CartItem[]): boolean {
+  return items.length === 0;
+}
