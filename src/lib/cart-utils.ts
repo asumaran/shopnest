@@ -60,3 +60,7 @@ export function getCartItemCount(items: CartItem[]): number {
 export function isCartEmpty(items: CartItem[]): boolean {
   return items.length === 0;
 }
+
+export function hasProduct(items: CartItem[], productId: string): boolean {
+  return items.some((item) => item.product.id === productId);
+}
