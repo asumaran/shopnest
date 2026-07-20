@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Product } from "@/types";
 import { useCart } from "@/context/CartContext";
+import WishlistButton from "./WishlistButton";
 
 interface ProductCardProps {
   product: Product;
@@ -14,17 +15,22 @@ export default function ProductCard({ product }: ProductCardProps) {
 
   return (
     <div className="bg-white rounded-lg shadow-sm border overflow-hidden hover:shadow-md transition-shadow">
-      <Link href={`/products/${product.id}`}>
-        <div className="relative h-48 bg-gray-100">
-          <Image
-            src={product.image}
-            alt={product.name}
-            fill
-            className="object-cover"
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          />
+      <div className="relative">
+        <Link href={`/products/${product.id}`}>
+          <div className="relative h-48 bg-gray-100">
+            <Image
+              src={product.image}
+              alt={product.name}
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            />
+          </div>
+        </Link>
+        <div className="absolute top-2 right-2">
+          <WishlistButton product={product} />
         </div>
-      </Link>
+      </div>
       <div className="p-4">
         <span className="text-xs text-blue-600 font-medium uppercase tracking-wide">
           {product.category}
