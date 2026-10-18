@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useCart } from "@/context/CartContext";
+import { formatCartBadgeCount } from "@/lib/cart-utils";
 
 export default function Header() {
   const { itemCount } = useCart();
@@ -27,7 +28,7 @@ export default function Header() {
               Cart
               {itemCount > 0 && (
                 <span className="absolute -top-2 -right-4 bg-blue-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                  {itemCount}
+                  {formatCartBadgeCount(itemCount)}
                 </span>
               )}
             </Link>

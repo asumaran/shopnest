@@ -5,6 +5,7 @@ import {
   updateQuantity,
   calculateCartTotal,
   getCartItemCount,
+  formatCartBadgeCount,
 } from "@/lib/cart-utils";
 import { CartItem, Product } from "@/types";
 
@@ -153,5 +154,27 @@ describe("getCartItemCount", () => {
       { product: mockProduct2, quantity: 3, subtotal: 149.97 },
     ];
     expect(getCartItemCount(cart)).toBe(5);
+  });
+});
+
+describe("formatCartBadgeCount", () => {
+  it("returns 0 verbatim", () => {
+    expect(formatCartBadgeCount(0)).toBe("0");
+  });
+
+  it("returns 1 verbatim", () => {
+    expect(formatCartBadgeCount(1)).toBe("1");
+  });
+
+  it("returns 9 verbatim at the threshold", () => {
+    expect(formatCartBadgeCount(9)).toBe("9");
+  });
+
+  it("caps 10 to 9+", () => {
+    expect(formatCartBadgeCount(10)).toBe("9+");
+  });
+
+  it("caps large counts to 9+", () => {
+    expect(formatCartBadgeCount(150)).toBe("9+");
   });
 });

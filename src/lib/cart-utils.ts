@@ -60,3 +60,9 @@ export function getCartItemCount(items: CartItem[]): number {
 export function isCartEmpty(items: CartItem[]): boolean {
   return items.length === 0;
 }
+
+const CART_BADGE_MAX = 9;
+
+export function formatCartBadgeCount(count: number): string {
+  return count > CART_BADGE_MAX ? `${CART_BADGE_MAX}+` : String(count);
+}
