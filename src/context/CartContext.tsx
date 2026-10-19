@@ -15,6 +15,7 @@ import {
   calculateCartTotal,
   getCartItemCount,
 } from "@/lib/cart-utils";
+import { amountUntilFreeShipping, calculateShipping } from "@/lib/shipping";
 
 interface CartContextType {
   items: CartItem[];
@@ -22,6 +23,8 @@ interface CartContextType {
   removeItem: (productId: string) => void;
   updateItemQuantity: (productId: string, quantity: number) => void;
   total: number;
+  shipping: number;
+  amountToFreeShipping: number;
   itemCount: number;
 }
 
@@ -46,11 +49,22 @@ export function CartProvider({ children }: { children: ReactNode }) {
   );
 
   const total = calculateCartTotal(items);
+  const shipping = calculateShipping(items);
+  const amountToFreeShipping = amountUntilFreeShipping(items);
   const itemCount = getCartItemCount(items);
 
   return (
     <CartContext.Provider
-      value={{ items, addItem, removeItem, updateItemQuantity, total, itemCount }}
+      value={{
+        items,
+        addItem,
+        removeItem,
+        updateItemQuantity,
+        total,
+        shipping,
+        amountToFreeShipping,
+        itemCount,
+      }}
     >
       {children}
     </CartContext.Provider>
