@@ -20,3 +20,17 @@ export interface CartItem {
   quantity: number;
   subtotal: number;
 }
+
+export interface OrderRequest {
+  items: { productId: string; quantity: number }[];
+  couponCode?: string;
+}
+
+export interface Order {
+  id: string;
+  items: CartItem[];
+  couponCode?: string;
+  shipping: number;
+  total: number;
+  createdAt: string;
+}
